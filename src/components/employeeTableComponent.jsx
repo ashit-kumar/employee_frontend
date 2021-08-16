@@ -14,6 +14,7 @@ class Table3 extends Component {
         this.renderTableBody = this.renderTableBody.bind(this);
         this.deleteEmployee = this.deleteEmployee.bind(this);
         this.sorting = this.sorting.bind(this);
+        this.sortingN = this.sortingN.bind(this);
     }
     async componentDidMount(){
         //this.setState({isLoading:true})
@@ -34,6 +35,11 @@ class Table3 extends Component {
     sorting(e,col){
         const d = this.state.users ;
         d.sort((a,b) => a[col].localeCompare(b[col]));
+        this.setState({d});
+    }
+    sortingN(e,col){
+        const d = this.state.users ;
+        d.sort((a,b) => a[col]>b[col]? 1:-1);
         this.setState({d});
     }
 
@@ -68,11 +74,11 @@ class Table3 extends Component {
             <div className='container'>
                 <table className='table table-bordered'>
                     <thead>
-                        <th onClick={e =>this.sorting(e,'id')}>ID</th>
+                        <th onClick={e =>this.sortingN(e,'id')}>ID</th>
                         <th onClick={e =>this.sorting(e,'firstname')}>First Name</th>
                         <th onClick={e =>this.sorting(e,'lastname')}>Last Name</th>
                         <th onClick={e =>this.sorting(e,'role')}>Role</th>
-                        <th onClick={e =>this.sorting(e,'salary')}>Salary</th>
+                        <th onClick={e =>this.sortingN(e,'salary')}>Salary</th>
                         <th onClick={e =>this.sorting(e,'address')}>Address</th>
                     </thead>
                     <tbody>
