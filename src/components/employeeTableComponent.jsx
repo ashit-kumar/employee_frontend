@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { Component } from 'react';
+// import _ from 'lodash'
 
+// const pageSize =5;
 class Table3 extends Component {
     constructor(props){
         super(props)
@@ -11,6 +13,7 @@ class Table3 extends Component {
         }
         this.renderTableBody = this.renderTableBody.bind(this);
         this.deleteEmployee = this.deleteEmployee.bind(this);
+        this.sorting = this.sorting.bind(this);
     }
     async componentDidMount(){
         //this.setState({isLoading:true})
@@ -26,6 +29,12 @@ class Table3 extends Component {
         alert("Employee deleted");
         window.location.reload(false);
 
+    }
+
+    sorting(e,col){
+        const d = this.state.users ;
+        d.sort((a,b) => a[col].localeCompare(b[col]));
+        this.setState({d});
     }
 
     renderTableBody =()=>{
@@ -52,22 +61,34 @@ class Table3 extends Component {
         // else if(isError){
         //     return <div>Error in fetching API</div>
         // }
-        
+        // const pageCount = users? Math.ceil(users.length/pageSize) : 0;
+        // if (pageCount===1) return null;
+        // const pages = _.range(1,pageCount+1);
         return users.length>0?(
-            <div>
-                <table>
+            <div className='container'>
+                <table className='table table-bordered'>
                     <thead>
-                        <th>ID</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Role</th>
-                        <th>Salary</th>
-                        <th>Address</th>
+                        <th onClick={e =>this.sorting(e,'id')}>ID</th>
+                        <th onClick={e =>this.sorting(e,'firstname')}>First Name</th>
+                        <th onClick={e =>this.sorting(e,'lastname')}>Last Name</th>
+                        <th onClick={e =>this.sorting(e,'role')}>Role</th>
+                        <th onClick={e =>this.sorting(e,'salary')}>Salary</th>
+                        <th onClick={e =>this.sorting(e,'address')}>Address</th>
                     </thead>
                     <tbody>
                         {this.renderTableBody()}
                     </tbody>
                 </table>
+                {/* <nav className="d-flex justify-content-center">
+                    <ul className="pagination">
+                        {
+                            pages.map((page)=>(
+                                <li className="page-link">{page}</li>
+                            ))
+                        }
+                    </ul>
+
+                </nav> */}
             </div>
         ):( <div>no data</div> )
         
