@@ -32,7 +32,7 @@ class AddEmployee extends Component {
   
 
   render() {
-    const { id,firstname, lastname, role, salary, address } = this.state;
+    const { firstname, lastname, role, salary, address } = this.state;
     return (
       <table>
         <tbody>
