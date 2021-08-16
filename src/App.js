@@ -1,24 +1,22 @@
-import logo from './logo.svg';
+
 import './App.css';
+import Table3 from './components/employeeTableComponent';
+import AddEmployee from './components/addEmployee';
+import UpdateEmployee from './components/updateEmployeeTable';
+
+import 'bootstrap/dist/css/bootstrap.css';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{maxWidth:"max", paddingTop:"40 rem"}} >
+      <AddEmployee/>
+      <br></br>
+      <Table3/>
+      <br></br>
+      <UpdateEmployee/>
     </div>
+    
   );
 }
 
