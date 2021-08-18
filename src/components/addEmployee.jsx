@@ -11,16 +11,17 @@ class AddEmployee extends Component {
       lastname: "",
       role: "",
       salary: "",
-      address: "",
+      address: ""
     };
     this.add = this.add.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
   add() {
-    //console.log(this.state);
+    
     axios.post("http://localhost:8080/employee/add", this.state);
     alert("Employee added");
+    window.location.reload(false);
     window.location.reload(false);
   }
   
@@ -33,8 +34,12 @@ class AddEmployee extends Component {
 
   render() {
     const { firstname, lastname, role, salary, address } = this.state;
+
+
     return (
-      <table>
+      <div>
+        {/* <button style={{backgroundColor:"#87FE64", display:!flag}} onClick = {{this.setState(this.state.flag=true)}}>ADD</button> */}
+      <table className="table-bordered table-success" >
         <tbody>
           <tr>
             <td>
@@ -83,7 +88,7 @@ class AddEmployee extends Component {
           </tr>
           </tbody>
       </table>
-      
+      </div>
     );
   }
 }

@@ -23,6 +23,7 @@ class UpdateEmployee extends Component {
     axios.put("http://localhost:8080/employee/update", this.state);
     alert("Employee Updated");
     window.location.reload(false);
+    window.location.reload(false);
   }
 
 
@@ -33,7 +34,7 @@ class UpdateEmployee extends Component {
   render() {
     const { id,firstname, lastname, role, salary, address } = this.state;
     return (
-      <table>
+      <table className="table-bordered table-success">
         <tbody>
           <tr>
           <td>

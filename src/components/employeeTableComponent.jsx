@@ -1,15 +1,14 @@
 import axios from 'axios';
 import React, { Component } from 'react';
-// import _ from 'lodash'
 
-// const pageSize =5;
+
 class Table3 extends Component {
     constructor(props){
         super(props)
         this.state = {
             users:[],
-            isLoading:false
-            
+            isLoading:false,
+            isOrder:false
         }
         this.renderTableBody = this.renderTableBody.bind(this);
         this.deleteEmployee = this.deleteEmployee.bind(this);
@@ -17,11 +16,11 @@ class Table3 extends Component {
         this.sortingN = this.sortingN.bind(this);
     }
     async componentDidMount(){
-        //this.setState({isLoading:true})
+
         const response= await axios.get('http://localhost:8080/employee/all')
 
         this.setState({users:response.data, isLoading:false})
-        console.log(this.state.users[0].address)
+
         
     }
 
@@ -29,18 +28,28 @@ class Table3 extends Component {
         axios.delete('http://localhost:8080/employee/del/'+id)
         alert("Employee deleted");
         window.location.reload(false);
-
+        window.location.reload(false);
     }
 
     sorting(e,col){
         const d = this.state.users ;
-        d.sort((a,b) => a[col].localeCompare(b[col]));
+        if(this.state.isOrder){
+            d.sort((a,b) => a[col].localeCompare(b[col]));
+        }else{
+            d.sort((a,b) => b[col].localeCompare(a[col]));
+        }
         this.setState({d});
+        this.setState({isOrder:!this.state.isOrder});
     }
     sortingN(e,col){
         const d = this.state.users ;
-        d.sort((a,b) => a[col]>b[col]? 1:-1);
+        if(this.state.isOrder){
+            d.sort((a,b) => a[col]>b[col]? 1:-1);
+        }else{
+            d.sort((a,b) => a[col]<b[col]? 1:-1);
+        }
         this.setState({d});
+        this.setState({isOrder:!this.state.isOrder});
     }
 
     renderTableBody =()=>{
@@ -61,25 +70,23 @@ class Table3 extends Component {
 
     render() { 
         const {users,isLoading} =this.state
+        
         if(isLoading){
             return <div>Loading....</div>
         }
-        // else if(isError){
-        //     return <div>Error in fetching API</div>
-        // }
-        // const pageCount = users? Math.ceil(users.length/pageSize) : 0;
-        // if (pageCount===1) return null;
-        // const pages = _.range(1,pageCount+1);
+        
+        
         return users.length>0?(
             <div className='container'>
-                <table className='table table-bordered'>
-                    <thead>
+                <table className='table table-bordered table-striped table-hover border-primary'>
+                    <thead className='bg-info'>
                         <th onClick={e =>this.sortingN(e,'id')}>ID</th>
                         <th onClick={e =>this.sorting(e,'firstname')}>First Name</th>
                         <th onClick={e =>this.sorting(e,'lastname')}>Last Name</th>
                         <th onClick={e =>this.sorting(e,'role')}>Role</th>
                         <th onClick={e =>this.sortingN(e,'salary')}>Salary</th>
                         <th onClick={e =>this.sorting(e,'address')}>Address</th>
+                        <th>Action</th>
                     </thead>
                     <tbody>
                         {this.renderTableBody()}
@@ -93,7 +100,6 @@ class Table3 extends Component {
                             ))
                         }
                     </ul>
-
                 </nav> */}
             </div>
         ):( <div>no data</div> )

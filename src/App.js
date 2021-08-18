@@ -12,8 +12,10 @@ function App() {
     <div style={{maxWidth:"max", paddingTop:"40 rem"}} >
       <AddEmployee/>
       <br></br>
-      <Table3/>
       <br></br>
+      <Table3/>
+      <br/>
+      <br/>
       <UpdateEmployee/>
     </div>
     
